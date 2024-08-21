@@ -16,6 +16,7 @@ class SharedPrefHelper {
   }
 
   Future<void> init() async {
+    if (_instance != null) return;
     _instance = await SharedPreferences.getInstance();
   }
 }
