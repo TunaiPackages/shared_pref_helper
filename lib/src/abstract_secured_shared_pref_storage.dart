@@ -4,21 +4,21 @@ import 'package:shared_pref_helper/src/base_shared_pref_storage.dart';
 
 abstract class AbstractSecuredSharedPrefStorage<T>
     extends BaseSharedPrefStorage<T> {
-  void store(T data) {
+  Future<void> store(T data) async {
     if (key.isEmpty) {
       throw SharedPrefHelperExceptions('Key is empty for localStorage');
     }
     const storage = FlutterSecureStorage();
     String dataString = convertDataToString(data);
-    storage.write(key: key, value: dataString);
+    await storage.write(key: key, value: dataString);
   }
 
-  void clear() {
+  Future<void> clear() async {
     if (key.isEmpty) {
       throw SharedPrefHelperExceptions('Key is empty for localStorage');
     }
     const storage = FlutterSecureStorage();
-    storage.delete(key: key);
+    await storage.delete(key: key);
   }
 
   Future<T?> fetch() async {
