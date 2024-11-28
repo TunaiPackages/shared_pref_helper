@@ -18,7 +18,11 @@ abstract class AbstractSecuredSharedPrefStorage<T>
       throw SharedPrefHelperExceptions('Key is empty for localStorage');
     }
     const storage = FlutterSecureStorage();
-    await storage.delete(key: key);
+    try {
+      await storage.delete(key: key);
+    } catch (e) {
+      print('AbstractSecuredSharedPrefStorage failed to delete key: $key');
+    }
   }
 
   Future<T?> fetch() async {
