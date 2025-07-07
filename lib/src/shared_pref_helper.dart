@@ -46,6 +46,7 @@ class SharedPrefHelper {
   }
 
   static Future<void> backup() async {
+    if (!Platform.isWindows) return;
     debugPrint('🔄 Backing up SharedPreferences...');
     final file = await _getWindowsPrefsFile();
     final backup = await _getBackupFile();
